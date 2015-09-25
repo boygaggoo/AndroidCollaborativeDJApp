@@ -23,6 +23,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.example.izhang.collaborativedj.HostActivity"
+            android:label="HostOptions"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
+        <activity
+            android:name="com.example.izhang.collaborativedj.Playlist"
+            android:label="Playlist"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
     </application>
 
 </manifest>

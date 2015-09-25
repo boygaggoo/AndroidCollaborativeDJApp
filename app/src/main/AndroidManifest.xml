@@ -17,6 +17,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".HostActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:label="Host Options">
+        </activity>
+
+        <activity
+            android:name=".Playlist"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:label="Party Playlist">
+        </activity>
     </application>
 
 </manifest>
