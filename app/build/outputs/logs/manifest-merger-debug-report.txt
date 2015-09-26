@@ -52,7 +52,7 @@ ADDED from C:\Users\Corey\AndroidStudioProjects\AndroidCollaborativeDJApp\app\sr
 activity#com.example.izhang.collaborativedj.HostActivity
 ADDED from C:\Users\Corey\AndroidStudioProjects\AndroidCollaborativeDJApp\app\src\main\AndroidManifest.xml:21:9-25:20
 	android:label
-		ADDED from C:\Users\Corey\AndroidStudioProjects\AndroidCollaborativeDJApp\app\src\main\AndroidManifest.xml:24:13-40
+		ADDED from C:\Users\Corey\AndroidStudioProjects\AndroidCollaborativeDJApp\app\src\main\AndroidManifest.xml:24:13-41
 	android:theme
 		ADDED from C:\Users\Corey\AndroidStudioProjects\AndroidCollaborativeDJApp\app\src\main\AndroidManifest.xml:23:13-56
 	android:name
@@ -60,7 +60,7 @@ ADDED from C:\Users\Corey\AndroidStudioProjects\AndroidCollaborativeDJApp\app\sr
 activity#com.example.izhang.collaborativedj.Playlist
 ADDED from C:\Users\Corey\AndroidStudioProjects\AndroidCollaborativeDJApp\app\src\main\AndroidManifest.xml:27:9-31:20
 	android:label
-		ADDED from C:\Users\Corey\AndroidStudioProjects\AndroidCollaborativeDJApp\app\src\main\AndroidManifest.xml:30:13-37
+		ADDED from C:\Users\Corey\AndroidStudioProjects\AndroidCollaborativeDJApp\app\src\main\AndroidManifest.xml:30:13-43
 	android:theme
 		ADDED from C:\Users\Corey\AndroidStudioProjects\AndroidCollaborativeDJApp\app\src\main\AndroidManifest.xml:29:13-56
 	android:name

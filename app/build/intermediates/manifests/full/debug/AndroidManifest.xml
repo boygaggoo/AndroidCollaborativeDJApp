@@ -25,12 +25,12 @@
         </activity>
         <activity
             android:name="com.example.izhang.collaborativedj.HostActivity"
-            android:label="HostOptions"
+            android:label="Host Options"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
         <activity
             android:name="com.example.izhang.collaborativedj.Playlist"
-            android:label="Playlist"
+            android:label="Party Playlist"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
     </application>
