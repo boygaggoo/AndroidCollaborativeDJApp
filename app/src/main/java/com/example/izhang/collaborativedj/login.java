@@ -43,15 +43,6 @@ public class login extends AppCompatActivity {
 
         final EditText code = (EditText)findViewById(R.id.codeEdit);
 
-        Button hostButton = (Button)findViewById(R.id.hostButton);
-        hostButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), HostActivity.class);
-                startActivity(i);
-            }
-        });
-
         Button joinButton = (Button)findViewById(R.id.joinButton);
         joinButton.setOnClickListener(new View.OnClickListener() {
             @Override
