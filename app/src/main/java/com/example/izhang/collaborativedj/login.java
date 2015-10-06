@@ -110,6 +110,8 @@ public class login extends AppCompatActivity {
                 // Response was successful and contains auth token
                 case TOKEN:
                     // Handle successful response
+                    Intent host = new Intent(this, HostActivity.class);
+                    startActivity(host);
                     break;
 
                 // Auth flow returned an error
