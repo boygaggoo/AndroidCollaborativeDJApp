@@ -24,7 +24,7 @@ import java.util.ArrayList;
 public class AddSong  extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_host);
+        setContentView(R.layout.activity_addsong);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarHost);
         setSupportActionBar(toolbar);
 
@@ -46,7 +46,7 @@ public class AddSong  extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_addsong, menu);
 
-        SearchView searchView = (SearchView)menu.findItem(R.id.search).getActionView();
+       /* SearchView searchView = (SearchView)menu.findItem(R.id.search).getActionView();
         MenuItemCompat.setOnActionExpandListener(menu.findItem(R.id.search), new MenuItemCompat.OnActionExpandListener() {
 
             @Override
@@ -73,8 +73,8 @@ public class AddSong  extends AppCompatActivity {
         searchView.setSearchableInfo(
                 searchManager.getSearchableInfo(getComponentName()));
 
+        return true;*/
         return true;
-
     }
     @Override
     protected void onNewIntent(Intent intent) {

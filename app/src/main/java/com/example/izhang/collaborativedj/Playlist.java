@@ -34,7 +34,7 @@ public class Playlist extends AppCompatActivity {
         });
 
         //get information from server and add to songlist for display
-
+        songItems.add(new SongItem("trap queen", "fetty wap", "idk"));
         songList = (ListView) findViewById(R.id.listView);
         CustomListAdapter adapter=new CustomListAdapter(this, songItems);
         // Assign adapter to ListView
