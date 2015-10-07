@@ -87,6 +87,8 @@ public class login extends AppCompatActivity {
     }
 
     public static boolean checkCode(String code){
+        if(code == null)
+            return false;
         boolean result = false;
             if(code.length() > 0 && code.length() < 10)
                 result = true;
