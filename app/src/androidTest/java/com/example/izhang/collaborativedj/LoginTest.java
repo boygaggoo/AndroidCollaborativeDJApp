@@ -1,7 +1,14 @@
 package com.example.izhang.collaborativedj;
 
+import android.app.Activity;
 import android.app.Application;
+import android.content.Intent;
+import android.test.ActivityUnitTestCase;
 import android.test.ApplicationTestCase;
+import android.test.suitebuilder.annotation.LargeTest;
+import android.test.suitebuilder.annotation.MediumTest;
+import android.widget.Button;
+import android.widget.EditText;
 
 import com.example.izhang.collaborativedj.HostActivity;
 import com.example.izhang.collaborativedj.Playlist;
@@ -21,17 +28,17 @@ public class LoginTest
     private Button loginButton;
 
     public LoginTest() {
-        super(login);
+        super(login.class);
     }
 
     @Override
     protected void setUp() throws Exception {
         super.setUp();
         activityIntent = new Intent(getInstrumentation()
-        .getTargetContext(), login);
+        .getTargetContext(), login.class);
         startActivity(activityIntent, null, null);
         mLoginTest = getActivity();
-        loginButton = (Button) mLoginTest.findViewById(R.id.codeEdit);
+        loginButton = (Button) mLoginTest.findViewById(R.id.joinButton);
         hostButton = (Button) mLoginTest.findViewById(R.id.hostButton);
         codeText =(EditText) mLoginTest.findViewById(R.id.codeEdit);
 
@@ -55,9 +62,7 @@ public class LoginTest
         assertNotNull("Intent was null", launchIntent);
         assertTrue(isFinishCalled());
 
-        final String payload =
-                launchIntent.getStringExtra(NextActivity.EXTRAS_PAYLOAD_KEY);
-        assertEquals("Payload is empty", LaunchActivity.STRING_PAYLOAD, payload);
+
 
     }
     @LargeTest
@@ -70,9 +75,7 @@ public class LoginTest
         assertNotNull("Intent was null", launchIntent);
         assertTrue(isFinishCalled());
 
-        final String payload =
-                launchIntent.getStringExtra(NextActivity.EXTRAS_PAYLOAD_KEY);
-        assertEquals("Payload is empty", LaunchActivity.STRING_PAYLOAD, payload);
+
 
     }
 }

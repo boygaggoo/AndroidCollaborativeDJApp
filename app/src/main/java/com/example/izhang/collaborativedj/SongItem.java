@@ -7,6 +7,7 @@ public class SongItem {
     private String name;
     private String artist;
     private String album;
+    private int vote; //0 means no vote, 1 means downvote, 2 means upvote all on client side
 
     public SongItem() {
         name = null;
@@ -30,5 +31,21 @@ public class SongItem {
 
     public String getAlbum() {
         return album;
+    }
+
+    public void upvote(){
+        vote = 2;
+    }
+
+    public void downvote(){
+        vote = 1;
+    }
+
+    public void neutral(){
+        vote = 0;
+    }
+
+    public int getVote(){
+        return vote;
     }
 }

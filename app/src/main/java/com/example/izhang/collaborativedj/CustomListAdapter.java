@@ -57,6 +57,12 @@ public class CustomListAdapter extends ArrayAdapter<SongItem> {
         upArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SongItem item = songItems.get(position);
+                if (item.getVote() == 1 || item.getVote() == 2)
+                    item.neutral();
+                else {
+                    item.upvote();
+                }
                 Log.v("up arrow", "up arrow clicked");
 
             }
@@ -65,6 +71,14 @@ public class CustomListAdapter extends ArrayAdapter<SongItem> {
         downArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SongItem item = songItems.get(position);
+                if (item.getVote() == 1 || item.getVote() == 2)
+                    item.neutral();
+                else{
+                    item.downvote();
+                }
+
+
                 Log.v("down arrow", "down arrow clicked");
             }
         });
