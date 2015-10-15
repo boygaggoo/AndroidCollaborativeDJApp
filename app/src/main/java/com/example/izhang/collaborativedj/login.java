@@ -48,7 +48,7 @@ public class login extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if(code.getText().length() > 0) {
+                if(checkCode(code.getText().toString())) {
                     Intent i = new Intent(getApplicationContext(), Playlist.class);
                     startActivity(i);
                 }
@@ -84,6 +84,15 @@ public class login extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public static boolean checkCode(String code){
+        if(code == null)
+            return false;
+        boolean result = false;
+            if(code.length() > 0 && code.length() < 10)
+                result = true;
+        return result;
     }
 
     public void onSpotifyLogin(View view){
