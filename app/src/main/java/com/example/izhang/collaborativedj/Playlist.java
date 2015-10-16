@@ -10,6 +10,8 @@ import android.widget.Button;
 
 /**
  * Created by Corey on 9/25/2015.
+ *
+ * Shows the playlist, allows people to vote
  */
 public class Playlist extends AppCompatActivity {
 

@@ -13,6 +13,8 @@ import android.widget.Button;
 
 /**
  * Created by Corey on 9/25/2015.
+ *
+ * HostActivity : Allows Host to create a playlist
  */
 public class HostActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
