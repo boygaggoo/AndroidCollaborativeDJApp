@@ -28,15 +28,16 @@ public class AddSong  extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarHost);
         setSupportActionBar(toolbar);
 
+        // TODO: This doesnt work, need to add button to the view
+        /*
         Button createPlaylist = (Button)findViewById(R.id.createPlaylistButton);
 
         createPlaylist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-
             }
-        });
+        });*/
 
     }
 
