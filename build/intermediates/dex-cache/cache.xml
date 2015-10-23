@@ -2,25 +2,11 @@
 <items version="2" >
 
     <item
-        jar="/Users/izhang/Desktop/Programming Work/collaborativeDJ/app/build/intermediates/exploded-aar/com.spotify.sdk/spotify-player/1.0.0-beta10/jars/classes.jar"
+        jar="/Users/izhang/Desktop/Programming Work/collaborativeDJ/app/build/intermediates/exploded-aar/collaborativeDJ/volley/unspecified/jars/classes.jar"
         jumboMode="false"
         revision="22.0.1"
-        sha1="303cdfb0e82e35c8ee189313e3d0ccc144accdc4">
-        <dex dex="/Users/izhang/Desktop/Programming Work/collaborativeDJ/app/build/intermediates/pre-dexed/debug/classes-78bd3a1d71b952dce35e4e9845a3e5ec3604c88d.jar" />
-    </item>
-    <item
-        jar="/Users/izhang/Desktop/Programming Work/collaborativeDJ/app/build/intermediates/exploded-aar/com.spotify.sdk/spotify-auth/1.0.0-beta10/jars/classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="a2736a2c8e3bd1d508baa11851e9a77f62646d08">
-        <dex dex="/Users/izhang/Desktop/Programming Work/collaborativeDJ/app/build/intermediates/pre-dexed/debug/classes-3cb5aaa011f4b1a9bf6c8fb4bdb51a3341e46caa.jar" />
-    </item>
-    <item
-        jar="/Users/izhang/Desktop/Programming Work/collaborativeDJ/app/build/intermediates/exploded-aar/com.spotify.sdk/spotify-player/1.0.0-beta10/jars/libs/jnihelpers-1.0.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="863562b367d763d45f9bb44f58a5029007f79555">
-        <dex dex="/Users/izhang/Desktop/Programming Work/collaborativeDJ/app/build/intermediates/pre-dexed/debug/jnihelpers-1.0-eb0ae5111a5f3a44c1a8d91da4d58159c4151fb0.jar" />
+        sha1="39c3e20f62beb5965a48d6e2365a15274d6de675">
+        <dex dex="/Users/izhang/Desktop/Programming Work/collaborativeDJ/app/build/intermediates/pre-dexed/debug/classes-de41339a98163f09347fdcebbf4bfe1bf975e431.jar" />
     </item>
 
 </items>

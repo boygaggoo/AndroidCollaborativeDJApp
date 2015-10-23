@@ -32,6 +32,7 @@ dependencies {
     compile 'com.android.support:appcompat-v7:22.2.1'
     compile 'com.android.support:design:22.2.1'
 
+    compile project(":volley")
     // This library handles authentication and authorization
     compile 'com.spotify.sdk:spotify-auth:1.0.0-beta10@aar'
 
