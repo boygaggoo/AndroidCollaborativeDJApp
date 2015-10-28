@@ -1,6 +1,7 @@
 package com.example.izhang.collaborativedj;
 
 import android.content.Intent;
+import android.media.session.MediaSession;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -53,6 +54,7 @@ public class login extends AppCompatActivity {
                 }
             }
         });
+
         Intent intent = getIntent();
         String action = intent.getAction();
         Uri data = intent.getData();
@@ -91,7 +93,6 @@ public class login extends AppCompatActivity {
 
     public void onSpotifyLogin(View view){
         // Request code will be used to verify if result comes from the login activity. Can be set to any integer.
-        System.out.println("HIT");
         AuthenticationRequest.Builder builder =
                 new AuthenticationRequest.Builder(CLIENT_ID, AuthenticationResponse.Type.TOKEN, REDIRECT_URI);
 
@@ -113,6 +114,7 @@ public class login extends AppCompatActivity {
                 // Response was successful and contains auth token
                 case TOKEN:
                     // Handle successful response
+                    Toast.makeText(getApplicationContext(), "Token: " + response.getAccessToken(), Toast.LENGTH_LONG).show();
                     Intent host = new Intent(this, HostActivity.class);
                     startActivity(host);
                     break;
