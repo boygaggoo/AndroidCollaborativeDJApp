@@ -27,7 +27,8 @@ public class AddSong  extends AppCompatActivity {
         setContentView(R.layout.activity_addsong);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarHost);
         setSupportActionBar(toolbar);
-
+        //should be able to search song from top and will display options in list.
+        // once a song is added add to playlist by calling to server
         // TODO: This doesnt work, need to add button to the view
         /*
         Button createPlaylist = (Button)findViewById(R.id.createPlaylistButton);

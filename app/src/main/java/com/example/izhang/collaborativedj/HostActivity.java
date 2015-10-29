@@ -23,6 +23,10 @@ public class HostActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarHost);
         setSupportActionBar(toolbar);
 
+
+        //can use add song to add songs to this one as well by just passing playlist id around
+        // host will need a code to pass out when playlist is created.
+        //
         Button createPlaylist = (Button)findViewById(R.id.createPlaylistButton);
 
         createPlaylist.setOnClickListener(new View.OnClickListener() {
