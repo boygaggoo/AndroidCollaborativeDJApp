@@ -2,11 +2,67 @@
 <items version="2" >
 
     <item
-        jar="/Users/izhang/Desktop/Programming Work/collaborativeDJ/app/build/intermediates/exploded-aar/collaborativeDJ/volley/unspecified/jars/classes.jar"
+        jar="C:\Users\thebeist\408\AndroidCollaborativeDJApp\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.1\jars\classes.jar"
         jumboMode="false"
         revision="22.0.1"
-        sha1="39c3e20f62beb5965a48d6e2365a15274d6de675">
-        <dex dex="/Users/izhang/Desktop/Programming Work/collaborativeDJ/app/build/intermediates/pre-dexed/debug/classes-de41339a98163f09347fdcebbf4bfe1bf975e431.jar" />
+        sha1="f8efd0096475e0daf054267b61544e10dc776503">
+        <dex dex="C:\Users\thebeist\408\AndroidCollaborativeDJApp\app\build\intermediates\pre-dexed\debug\classes-3c528a423600019b2463c0668ebfb1bd9a2ef824.jar" />
+    </item>
+    <item
+        jar="C:\Users\thebeist\408\AndroidCollaborativeDJApp\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\22.2.1\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="4486e953d1f35f8ccab098b1dd67146366d5f731">
+        <dex dex="C:\Users\thebeist\408\AndroidCollaborativeDJApp\app\build\intermediates\pre-dexed\debug\classes-7655e34360b4365883cc89ee11b4aa576e787850.jar" />
+    </item>
+    <item
+        jar="C:\Users\thebeist\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\22.2.1\support-annotations-22.2.1.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="61a0ff5c29295ec56d7e0bd3d25d95dbf71b4b2b">
+        <dex dex="C:\Users\thebeist\408\AndroidCollaborativeDJApp\app\build\intermediates\pre-dexed\debug\support-annotations-22.2.1-4b2deae0c66273c6d0d9c7665a0155d249567bda.jar" />
+    </item>
+    <item
+        jar="C:\Users\thebeist\408\AndroidCollaborativeDJApp\app\build\intermediates\exploded-aar\com.android.support\design\22.2.1\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="1821601ddbec5ff125653097812823388700af74">
+        <dex dex="C:\Users\thebeist\408\AndroidCollaborativeDJApp\app\build\intermediates\pre-dexed\debug\classes-04244b41c1a44d2a760a174aa4c46f79549ec53f.jar" />
+    </item>
+    <item
+        jar="C:\Users\thebeist\408\AndroidCollaborativeDJApp\volley\volley.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="d4aaa36e04ee71a83444f8367c97a46fda662d2c">
+        <dex dex="C:\Users\thebeist\408\AndroidCollaborativeDJApp\app\build\intermediates\pre-dexed\debug\volley-7d7622da6d419c0816420771d8e3cf3cafa0cf78.jar" />
+    </item>
+    <item
+        jar="C:\Users\thebeist\408\AndroidCollaborativeDJApp\app\build\intermediates\exploded-aar\com.spotify.sdk\spotify-auth\1.0.0-beta10\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="a2736a2c8e3bd1d508baa11851e9a77f62646d08">
+        <dex dex="C:\Users\thebeist\408\AndroidCollaborativeDJApp\app\build\intermediates\pre-dexed\debug\classes-eca0cb4118619d29e469bfbba10a377909d2a8de.jar" />
+    </item>
+    <item
+        jar="C:\Users\thebeist\408\AndroidCollaborativeDJApp\app\build\intermediates\exploded-aar\com.spotify.sdk\spotify-player\1.0.0-beta10\jars\libs\jnihelpers-1.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="863562b367d763d45f9bb44f58a5029007f79555">
+        <dex dex="C:\Users\thebeist\408\AndroidCollaborativeDJApp\app\build\intermediates\pre-dexed\debug\jnihelpers-1.0-a916001bd1ed2cf5174547cec674a9a0759ab757.jar" />
+    </item>
+    <item
+        jar="C:\Users\thebeist\408\AndroidCollaborativeDJApp\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.1\jars\libs\internal_impl-22.2.1.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="c471eaaba13ff64f6e0383d1c30a9cdc9a97efeb">
+        <dex dex="C:\Users\thebeist\408\AndroidCollaborativeDJApp\app\build\intermediates\pre-dexed\debug\internal_impl-22.2.1-d415953153171f8d60fa142616e1d82134059f00.jar" />
+    </item>
+    <item
+        jar="C:\Users\thebeist\408\AndroidCollaborativeDJApp\app\build\intermediates\exploded-aar\com.spotify.sdk\spotify-player\1.0.0-beta10\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="303cdfb0e82e35c8ee189313e3d0ccc144accdc4">
+        <dex dex="C:\Users\thebeist\408\AndroidCollaborativeDJApp\app\build\intermediates\pre-dexed\debug\classes-c7baa68c4cb3a031983c8f3204fb9f59ce40e843.jar" />
     </item>
 
 </items>

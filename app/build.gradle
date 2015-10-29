@@ -27,15 +27,14 @@ repositories {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    //compile files('libs/volley.jar')
+    compile project(':volley')
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:22.2.1'
     compile 'com.android.support:design:22.2.1'
-
-    compile files('libs/volley.jar')
     // This library handles authentication and authorization
     compile 'com.spotify.sdk:spotify-auth:1.0.0-beta10@aar'
-
     // This library handles music playback
     compile 'com.spotify.sdk:spotify-player:1.0.0-beta10@aar'
 }
