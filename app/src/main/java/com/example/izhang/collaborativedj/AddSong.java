@@ -22,7 +22,12 @@ import java.util.ArrayList;
  * Created by thebeist on 10/2/2015.
  */
 public class AddSong  extends AppCompatActivity {
+
+    private boolean searchCompleted = false;
+
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_addsong);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarHost);
@@ -87,8 +92,10 @@ public class AddSong  extends AppCompatActivity {
 
         ArrayList<SongItem> queryList= new ArrayList<SongItem>();
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-            //send requested song to server
-
+            String query = intent.getStringExtra(SearchManager.QUERY);
+            searchCompleted = true;
+            //send string to server
+            //update list with new results
         }
     }
 
