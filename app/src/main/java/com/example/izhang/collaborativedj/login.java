@@ -16,7 +16,9 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
+import com.android.volley.*;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.spotify.sdk.android.authentication.AuthenticationClient;
 import com.spotify.sdk.android.authentication.AuthenticationRequest;
 import com.spotify.sdk.android.authentication.AuthenticationResponse;
@@ -45,8 +47,37 @@ public class login extends AppCompatActivity {
             public void onClick(View v) {
                 //call server to check if code works
                 if(checkCode(code.getText().toString())) {
-                    Intent i = new Intent(getApplicationContext(), Playlist.class);
-                    startActivity(i);
+                    RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+
+                    //// TODO: 10/29/15 : Change URL to actual.
+                    String url = "Http://";
+                    //// // TODO: 10/29/15
+
+                    StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                            new Response.Listener<String>() {
+                                @Override
+                                public void onResponse(String response) {
+                                    // Display the first 500 characters of the response string.
+                                    if(response.equals("202")) {
+                                        Intent i = new Intent(getApplicationContext(), Playlist.class);
+                                        startActivity(i);
+                                    }else{
+                                        Toast.makeText(getApplicationContext(), "Wrong Playlist Code", Toast.LENGTH_LONG).show();
+                                    }
+                                }
+                            }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Toast.makeText(getApplicationContext(), "Could not connect to internet" + error.toString(),
+                                    Toast.LENGTH_LONG).show();
+
+
+
+                        }
+                    });
+                    // Add the request to the RequestQueue.
+                    queue.add(stringRequest);
+
                 }
                 else{
                     Toast.makeText(getApplicationContext(), "Enter a code",
