@@ -16,11 +16,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import com.android.volley.*;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.spotify.sdk.android.authentication.AuthenticationClient;
 import com.spotify.sdk.android.authentication.AuthenticationRequest;
 import com.spotify.sdk.android.authentication.AuthenticationResponse;
+import com.spotify.sdk.android.player.Spotify;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.net.URI;
 
 /*
 Main Page - Login
@@ -46,36 +53,42 @@ public class login extends AppCompatActivity {
             public void onClick(View v) {
                 //call server to check if code works
                 if(checkCode(code.getText().toString())) {
+                    Intent i = new Intent(getApplicationContext(), Playlist.class);
+                    startActivity(i);
+
                     RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
 
                     //// TODO: 10/29/15 : Change URL to actual.
                     String url = "Http://";
                     //// // TODO: 10/29/15
 
-                    StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                            new Response.Listener<String>() {
+                    JsonObjectRequest req = new JsonObjectRequest(url, null,
+                            new Response.Listener<JSONObject>() {
                                 @Override
-                                public void onResponse(String response) {
-                                    // Display the first 500 characters of the response string.
-                                    if(response.equals("202")) {
-                                        Intent i = new Intent(getApplicationContext(), Playlist.class);
-                                        startActivity(i);
-                                    }else{
-                                        Toast.makeText(getApplicationContext(), "Wrong Playlist Code", Toast.LENGTH_LONG).show();
+                                public void onResponse(JSONObject response) {
+                                    try {
+                                        if(response.has("status")) {
+                                            int statusCode = response.getInt("status");
+                                            if(statusCode == 200) {
+                                                Intent i = new Intent(getApplicationContext(), Playlist.class);
+                                                startActivity(i);
+                                            }else{
+                                                Toast.makeText(getApplicationContext(), "Wrong Playlist Code", Toast.LENGTH_LONG).show();
+                                            }
+                                        }
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
                                     }
                                 }
                             }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            Toast.makeText(getApplicationContext(), "Could not connect to internet" + error.toString(),
-                                    Toast.LENGTH_LONG).show();
-
-
-
+                            VolleyLog.e("Error: ", error.getMessage());
                         }
                     });
+
                     // Add the request to the RequestQueue.
-                    queue.add(stringRequest);
+                    queue.add(req);
 
                 }
                 else{
@@ -127,9 +140,9 @@ public class login extends AppCompatActivity {
         AuthenticationRequest.Builder builder =
                 new AuthenticationRequest.Builder(CLIENT_ID, AuthenticationResponse.Type.TOKEN, REDIRECT_URI);
 
-        builder.setScopes(new String[]{"streaming"});
-        AuthenticationRequest request = builder.build();
 
+        builder.setScopes(new String[]{"user-read-private","streaming"});
+        AuthenticationRequest request = builder.build();
         AuthenticationClient.openLoginActivity(this, REQUEST_CODE, request);
     }
 
@@ -145,11 +158,10 @@ public class login extends AppCompatActivity {
                 // Response was successful and contains auth token
                 case TOKEN:
                     // Handle successful response
-                    Toast.makeText(getApplicationContext(), "Token: " + response.getAccessToken(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Access Token: " + response.getAccessToken() + "\nResult Type: " + response.getType().toString() + "\n Expires In: " + response.getExpiresIn(), Toast.LENGTH_LONG).show();
                     Intent host = new Intent(this, HostActivity.class);
                     startActivity(host);
                     break;
-
                 // Auth flow returned an error
                 case ERROR:
                     // Handle error response
