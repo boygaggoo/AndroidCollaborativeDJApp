@@ -7,7 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.SearchView;
+
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -21,6 +21,7 @@ import android.widget.Button;
 
 
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -50,7 +51,7 @@ public class AddSong  extends AppCompatActivity {
 
         activity = this;
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarHost);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarAddSong);
         setSupportActionBar(toolbar);
         //should be able to search song from top and will display options in list.
         // once a song is added add to playlist by calling to server

@@ -38,4 +38,5 @@ dependencies {
     // This library handles music playback
     compile 'com.spotify.sdk:spotify-player:1.0.0-beta10@aar'
     compile project(':volley')
+    compile 'com.github.nkzawa:socket.io-client:0.3.0'
 }

@@ -45,8 +45,13 @@ public class login extends AppCompatActivity {
         joinButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), Playlist.class);
+                startActivity(i);
                 //call server to check if code works
                 if(checkCode(code.getText().toString())) {
+                    i = new Intent(getApplicationContext(), Playlist.class);
+                    startActivity(i);
+
                     RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
 
                     //// TODO: 10/29/15 : Change URL to actual.

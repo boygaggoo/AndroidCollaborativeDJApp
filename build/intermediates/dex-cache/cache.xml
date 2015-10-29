@@ -2,11 +2,25 @@
 <items version="2" >
 
     <item
-        jar="/Users/Shildmyer/Projects/AndroidCollaborativeDJApp/app/build/intermediates/exploded-aar/AndroidCollaborativeDJApp/volley/unspecified/jars/classes.jar"
+        jar="/Users/Shildmyer/.gradle/caches/modules-2/files-2.1/com.github.nkzawa/engine.io-client/0.3.1/3ca9d0d53a27ecb88538ed874be417cfa827db5d/engine.io-client-0.3.1.jar"
         jumboMode="false"
         revision="22.0.1"
-        sha1="1e4eeadcc75d30fcd384ec2f6fb05c2db7c563aa">
-        <dex dex="/Users/Shildmyer/Projects/AndroidCollaborativeDJApp/app/build/intermediates/pre-dexed/debug/classes-e5433d560028d913e8e2984f853d073fd1cde6a9.jar" />
+        sha1="3ca9d0d53a27ecb88538ed874be417cfa827db5d">
+        <dex dex="/Users/Shildmyer/Projects/AndroidCollaborativeDJApp/app/build/intermediates/pre-dexed/debug/engine.io-client-0.3.1-77e6520b1f41424f37011308a127495fb1732e58.jar" />
+    </item>
+    <item
+        jar="/Users/Shildmyer/.gradle/caches/modules-2/files-2.1/org.java-websocket/Java-WebSocket/1.3.0/db2658f013fb163de4a99274c2eb9e17efe535d2/Java-WebSocket-1.3.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="db2658f013fb163de4a99274c2eb9e17efe535d2">
+        <dex dex="/Users/Shildmyer/Projects/AndroidCollaborativeDJApp/app/build/intermediates/pre-dexed/debug/Java-WebSocket-1.3.0-c7a691569e192bcbbad992fe8e92658a279a596d.jar" />
+    </item>
+    <item
+        jar="/Users/Shildmyer/.gradle/caches/modules-2/files-2.1/com.github.nkzawa/socket.io-client/0.3.0/8dfd7cf8d1124acb027b3ffd53eafcc518af3ba9/socket.io-client-0.3.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="8dfd7cf8d1124acb027b3ffd53eafcc518af3ba9">
+        <dex dex="/Users/Shildmyer/Projects/AndroidCollaborativeDJApp/app/build/intermediates/pre-dexed/debug/socket.io-client-0.3.0-b19a54519ac2fabc448bb2a103d6d1aec705496f.jar" />
     </item>
 
 </items>
