@@ -45,6 +45,8 @@ public class login extends AppCompatActivity {
         joinButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), Playlist.class);
+                startActivity(i);
                 //call server to check if code works
                 if(checkCode(code.getText().toString())) {
                     RequestQueue queue = Volley.newRequestQueue(getApplicationContext());

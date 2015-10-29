@@ -92,7 +92,7 @@ ADDED from C:\Users\thebeist\408\AndroidCollaborativeDJApp\app\src\main\AndroidM
 activity#com.example.izhang.collaborativedj.AddSong
 ADDED from C:\Users\thebeist\408\AndroidCollaborativeDJApp\app\src\main\AndroidManifest.xml:44:9-55:20
 	android:label
-		ADDED from C:\Users\thebeist\408\AndroidCollaborativeDJApp\app\src\main\AndroidManifest.xml:47:13-41
+		ADDED from C:\Users\thebeist\408\AndroidCollaborativeDJApp\app\src\main\AndroidManifest.xml:47:13-38
 	android:theme
 		ADDED from C:\Users\thebeist\408\AndroidCollaborativeDJApp\app\src\main\AndroidManifest.xml:46:13-56
 	android:name
