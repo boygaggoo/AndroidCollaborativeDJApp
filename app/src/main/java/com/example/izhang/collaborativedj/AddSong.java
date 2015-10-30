@@ -74,7 +74,11 @@ public class AddSong  extends AppCompatActivity {
 
             }
         });*/
-
+        songsDisplayed = (ListView) findViewById(R.id.returnedSongs);
+        returnedList.add(new SongItem("trap queen", "fetty wap", "idk", null, 0));
+        CustomListAddAdapter adapter=new CustomListAddAdapter(activity, returnedList, playlistID);
+        // Assign adapter to ListView
+        songsDisplayed.setAdapter(adapter);
     }
 
     @Override
@@ -128,9 +132,9 @@ public class AddSong  extends AppCompatActivity {
             final String query = intent.getStringExtra(SearchManager.QUERY);
             searchCompleted = true;
             //send string to server
-
+                Log.v("query", query);
             RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-            String url = "http://collaborativedj.herokuapp.com/searchTrack";
+            String url = "Http://collaborativedj.herokuapp.com/searchTrack";
 // Request a string response from the provided URL.
             StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                     new Response.Listener<String>() {

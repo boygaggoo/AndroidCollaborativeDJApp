@@ -52,7 +52,7 @@ public class CustomListAddAdapter extends ArrayAdapter<SongItem> {
             Log.v("view", "view is null");
             LayoutInflater vi;
             vi = LayoutInflater.from(getContext());
-            v = vi.inflate(R.layout.list_item, parent, false);
+            v = vi.inflate(R.layout.listadd_item, parent, false);
         }
         final SongItem songItem = songItems.get(position);
         TextView songTitle = (TextView) v.findViewById(R.id.songTitle);
@@ -63,13 +63,13 @@ public class CustomListAddAdapter extends ArrayAdapter<SongItem> {
 
 
         songTitle.setText(songItem.getName());
-        songInfo.setText(songItem.getArtist() + songItem.getAlbum());
+        songInfo.setText(songItem.getArtist());
 
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 RequestQueue queue = Volley.newRequestQueue(getContext());
-                String url = "http://collaborativedj.herokuapp.com/addTrack";
+                String url = "Http://collaborativedj.herokuapp.com/addTrack";
 // Request a string response from the provided URL.
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                         new Response.Listener<String>() {

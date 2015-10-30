@@ -62,8 +62,8 @@ public class CustomListAdapter extends ArrayAdapter<SongItem> {
 
 
 
-        songTitle.setText(songItems.get(position).getName());
-        songInfo.setText(songItems.get(position).getArtist() + songItems.get(position).getAlbum());
+        songTitle.setText(songItem.getName());
+        songInfo.setText(songItem.getArtist());
 
         upArrow.setOnClickListener(new View.OnClickListener() {
             @Override
