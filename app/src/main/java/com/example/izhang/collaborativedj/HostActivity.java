@@ -7,10 +7,21 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import java.util.HashMap;
 
 /**
  * Created by Corey on 9/25/2015.
@@ -18,11 +29,17 @@ import android.widget.Button;
  * HostActivity : Allows Host to create a playlist
  */
 public class HostActivity extends AppCompatActivity {
+    public String userID = "";
+    public String accessToken = "";
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_host);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarHost);
         setSupportActionBar(toolbar);
+
+        Bundle loginExtras = getIntent().getExtras();
+        userID = loginExtras.get("user_id").toString();
+        accessToken = loginExtras.get("access_token").toString();
 
         // Get the userID that will be sent as a bundle from login
         Button createPlaylist = (Button)findViewById(R.id.createPlaylistButton);
@@ -30,10 +47,39 @@ public class HostActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Call create playlist here.
+                RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+                String url ="http://collaborativedj.herokuapp.com/createPlaylist";
+                StringRequest request = new StringRequest(Request.Method.POST, url,
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                // Display the first 500 characters of the response string.
+                                Log.v("PLAYLIST!", response);
+                                
+                            }
+                        }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.v("PLAYLIST!", error.toString() + "  " );
+                        //Toast.makeText(getApplicationContext(), "This Playlist ID does not exist.", Toast.LENGTH_LONG).show();
+                    }
+                }){
+                    @Override
+                    public HashMap<String, String> getParams() {
+                        HashMap<String, String> headers = new HashMap<String, String>();
+                        headers.put("userId", userID);
+                        headers.put("accessToken", accessToken);
+                        return headers;
+                    }
+                };
 
+                queue.add(request);
+
+                /*
                 Intent i = new Intent(getApplicationContext(), Playlist.class);
                 i.putExtra("PlaylistID", "0aH0ytXyaOcl9eGxHwokUI");
                 startActivity(i);
+                */
             }
         });
 

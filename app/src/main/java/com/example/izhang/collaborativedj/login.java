@@ -35,7 +35,8 @@ public class login extends AppCompatActivity {
     private static final int REQUEST_CODE = 1337;
     private static final String REDIRECT_URI = "collabdj://spotifycallback";
     private static final String CLIENT_ID = "6fb90af0cf48488f866539ded0b7fab7";
-
+    String userID = "";
+    String accessToken = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +52,7 @@ public class login extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), Playlist.class);
+                i.putExtra("PlaylistID", "0aH0ytXyaOcl9eGxHwokUI");
                 startActivity(i);
                 //call server to check if code works
                 if(checkCode(code.getText().toString())) {
@@ -158,6 +160,7 @@ public class login extends AppCompatActivity {
                 // Response was successful and contains auth token
                 case TOKEN:
                     // Handle successful response
+                    accessToken = response.getAccessToken();
                     RequestQueue queue = Volley.newRequestQueue(this);
                     String url ="https://api.spotify.com/v1/me/";
                     StringRequest request = new StringRequest(Request.Method.GET, url,
@@ -167,9 +170,7 @@ public class login extends AppCompatActivity {
                                     // Display the first 500 characters of the response string.
                                     try {
                                         JSONObject obj = new JSONObject(response);
-                                        String userID = obj.getString("id");
-                                        Log.v("TOKEN!", userID);
-
+                                        userID = obj.getString("id");
                                     } catch (Exception e){
                                         e.printStackTrace();
                                     }
@@ -193,6 +194,8 @@ public class login extends AppCompatActivity {
                     Log.v("TOKEN!", response.getAccessToken());
                     Toast.makeText(getApplicationContext(), "Access Token: " + response.getAccessToken() + "\nResult Type: " + response.getType().toString() + "\n Expires In: " + response.getExpiresIn(), Toast.LENGTH_LONG).show();
                     Intent host = new Intent(this, HostActivity.class);
+                    host.putExtra("user_id", userID);
+                    host.putExtra("access_token", accessToken);
                     startActivity(host);
                     break;
                 // Auth flow returned an error
