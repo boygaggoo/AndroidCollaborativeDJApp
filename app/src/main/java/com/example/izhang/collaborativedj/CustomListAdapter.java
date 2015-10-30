@@ -13,9 +13,18 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Set;
 
 
@@ -25,10 +34,12 @@ import java.util.Set;
 public class CustomListAdapter extends ArrayAdapter<SongItem> {
 
     private final ArrayList<SongItem>  songItems;
+    private String playlistID;
 
+    public CustomListAdapter(Activity context, ArrayList<SongItem> songItems, String playlistID) {
 
-    public CustomListAdapter(Activity context, ArrayList<SongItem> songItems) {
         super(context, R.layout.list_item, songItems);
+        this.playlistID = playlistID;
         // TODO Auto-generated constructor stub
 
         this.songItems=songItems;
@@ -64,6 +75,36 @@ public class CustomListAdapter extends ArrayAdapter<SongItem> {
                 } else {
                     item.upvote();
                     //server call
+                    RequestQueue queue = Volley.newRequestQueue(getContext());
+                    String url ="http://collaborativedj.herokuapp.com/voteSong";
+                    StringRequest request = new StringRequest(Request.Method.GET, url,
+                            new Response.Listener<String>() {
+                                @Override
+                                public void onResponse(String response) {
+                                    // Display the first 500 characters of the response string.
+                                    try {
+                                        Log.v("Upvote", response);
+                                    } catch (Exception e){
+                                        e.printStackTrace();
+
+                                    }
+                                }
+                            }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Toast.makeText(getContext(), "Upvote failed", Toast.LENGTH_LONG).show();
+                        }
+
+                    }){
+                        @Override
+                        public HashMap<String, String> getParams() {
+                            HashMap<String, String> params = new HashMap<String, String>();
+                            params.put("vote", "-1");
+                            params.put("trackURI", songItem.getURI());
+                            params.put("playlistID", playlistID);
+                            return params;
+                        }
+                    };
                 }
                 setImages(item.getVote(), downArrow, upArrow);
                 Log.v("up arrow", "up arrow clicked");
@@ -80,6 +121,36 @@ public class CustomListAdapter extends ArrayAdapter<SongItem> {
                 } else {
                     item.downvote();
                     //server call
+                    RequestQueue queue = Volley.newRequestQueue(getContext());
+                    String url = "http://collaborativedj.herokuapp.com/voteSong";
+                    StringRequest request = new StringRequest(Request.Method.GET, url,
+                            new Response.Listener<String>() {
+                                @Override
+                                public void onResponse(String response) {
+                                    // Display the first 500 characters of the response string.
+                                    try {
+                                        Log.v("Downvote", response);
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+
+                                    }
+                                }
+                            }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Toast.makeText(getContext(), "Downvote failed", Toast.LENGTH_LONG).show();
+                        }
+
+                    }) {
+                        @Override
+                        public HashMap<String, String> getParams() {
+                            HashMap<String, String> params = new HashMap<String, String>();
+                            params.put("vote", "1");
+                            params.put("trackURI", songItem.getURI());
+                            params.put("playlistID", playlistID);
+                            return params;
+                        }
+                    };
                 }
 
                 setImages(item.getVote(), downArrow,upArrow);
@@ -107,5 +178,7 @@ public class CustomListAdapter extends ArrayAdapter<SongItem> {
 
         return;
     }
+
+
 
 }
