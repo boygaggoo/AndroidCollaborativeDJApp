@@ -26,7 +26,7 @@ public class CustomListAdapter extends ArrayAdapter<SongItem> {
 
     private final ArrayList<SongItem>  songItems;
 
-    private  String IMAGEPATH = "http://app.engagebyeview.com/portal/VideoThumbNails/";
+
     public CustomListAdapter(Activity context, ArrayList<SongItem> songItems) {
         super(context, R.layout.list_item, songItems);
         // TODO Auto-generated constructor stub
