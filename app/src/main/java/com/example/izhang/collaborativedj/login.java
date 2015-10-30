@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.Menu;
+
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
@@ -51,9 +52,11 @@ public class login extends AppCompatActivity {
         joinButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), Playlist.class);
+                startActivity(i);
                 //call server to check if code works
                 if(checkCode(code.getText().toString())) {
-                    Intent i = new Intent(getApplicationContext(), Playlist.class);
+                    i = new Intent(getApplicationContext(), Playlist.class);
                     startActivity(i);
 
                     RequestQueue queue = Volley.newRequestQueue(getApplicationContext());

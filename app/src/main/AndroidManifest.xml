@@ -44,7 +44,7 @@
         <activity
             android:name=".AddSong"
             android:theme="@style/AppTheme.NoActionBar"
-            android:label="Host Options">
+            android:label="Add Songs">
             <meta-data android:name="android.app.searchable"
                 android:resource="@xml/searchable"
                 />

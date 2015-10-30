@@ -47,7 +47,7 @@
         </activity>
         <activity
             android:name="com.example.izhang.collaborativedj.AddSong"
-            android:label="Host Options"
+            android:label="Add Songs"
             android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
                 android:name="android.app.searchable"

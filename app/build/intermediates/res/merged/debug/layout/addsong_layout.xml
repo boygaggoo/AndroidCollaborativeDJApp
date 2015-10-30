@@ -9,5 +9,10 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/addsong_layout" tools:context=".AddSong">
 
+    <ListView
+        android:id="@+id/returnedSongs"
+        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
 
-</LinearLayout><!-- From: file:/C:/Users/thebeist/408/AndroidCollaborativeDJApp/app/src/main/res/layout/addsong_layout.xml -->
+        />
+</LinearLayout><!-- From: file:/Users/izhang/Desktop/Programming%20Work/collaborativeDJ/app/src/main/res/layout/addsong_layout.xml -->
