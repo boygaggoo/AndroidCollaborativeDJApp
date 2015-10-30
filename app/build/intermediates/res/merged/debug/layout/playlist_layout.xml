@@ -21,4 +21,4 @@
         android:layout_below="@+id/addSongButton"
         >
     </ListView>
-</RelativeLayout><!-- From: file:/Users/izhang/Desktop/Programming%20Work/collaborativeDJ/app/src/main/res/layout/playlist_layout.xml -->
+</RelativeLayout><!-- From: file:/C:/Users/thebeist/408/testApp/AndroidCollaborativeDJApp/app/src/main/res/layout/playlist_layout.xml -->

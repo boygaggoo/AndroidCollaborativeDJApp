@@ -46,8 +46,8 @@ public class CustomListAdapter extends ArrayAdapter<SongItem> {
         final SongItem songItem = songItems.get(position);
         TextView songTitle = (TextView) v.findViewById(R.id.songTitle);
         TextView songInfo = (TextView) v.findViewById(R.id.songInfo);
-        ImageView upArrow = (ImageView) v.findViewById(R.id.upArrow);
-        ImageView downArrow = (ImageView) v.findViewById(R.id.downArrow);
+        final ImageView upArrow = (ImageView) v.findViewById(R.id.upArrow);
+        final ImageView downArrow = (ImageView) v.findViewById(R.id.downArrow);
 
 
 
@@ -58,14 +58,15 @@ public class CustomListAdapter extends ArrayAdapter<SongItem> {
             @Override
             public void onClick(View v) {
                 SongItem item = songItems.get(position);
-                if (item.getVote() == 2)
+                if (item.getVote() == 2) {
                     item.neutral();
-                else {
+
+                } else {
                     item.upvote();
                     //server call
                 }
+                setImages(item.getVote(), downArrow, upArrow);
                 Log.v("up arrow", "up arrow clicked");
-
             }
         });
 
@@ -73,19 +74,38 @@ public class CustomListAdapter extends ArrayAdapter<SongItem> {
             @Override
             public void onClick(View v) {
                 SongItem item = songItems.get(position);
-                if (item.getVote() == 1 )
+                if (item.getVote() == 1) {
                     item.neutral();
-                else{
+
+                } else {
                     item.downvote();
                     //server call
                 }
 
-
+                setImages(item.getVote(), downArrow,upArrow);
                 Log.v("down arrow", "down arrow clicked");
             }
         });
-
+        setImages(songItems.get(position).getVote(), downArrow, upArrow);
         return v;
+    }
+    public void setImages(int vote, ImageView downArrow, ImageView upArrow){
+        if(vote == 0){
+            downArrow.setImageResource(R.mipmap.ic_expand_more_black_24dp);
+            upArrow.setImageResource(R.mipmap.ic_expand_less_black_24dp);
+        }
+        else if(vote ==1){
+            upArrow.setImageResource(R.mipmap.ic_expand_less_black_24dp);
+            downArrow.setImageResource(R.mipmap.ic_expand_more_blue_24dp);
+
+        }
+        else{
+            downArrow.setImageResource(R.mipmap.ic_expand_more_black_24dp);
+            upArrow.setImageResource(R.mipmap.ic_expand_less_pink_24dp);
+
+        }
+
+        return;
     }
 
 }
