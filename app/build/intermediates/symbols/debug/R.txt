@@ -712,9 +712,11 @@ int menu menu_addsong 0x7f0e0000
 int menu menu_login 0x7f0e0001
 int mipmap ic_add_circle_outline_white_24dp 0x7f030000
 int mipmap ic_expand_less_black_24dp 0x7f030001
-int mipmap ic_expand_more_black_24dp 0x7f030002
-int mipmap ic_launcher 0x7f030003
-int mipmap ic_search_white_24dp 0x7f030004
+int mipmap ic_expand_less_pink_24dp 0x7f030002
+int mipmap ic_expand_more_black_24dp 0x7f030003
+int mipmap ic_expand_more_blue_24dp 0x7f030004
+int mipmap ic_launcher 0x7f030005
+int mipmap ic_search_white_24dp 0x7f030006
 int string abc_action_bar_home_description 0x7f070000
 int string abc_action_bar_home_description_format 0x7f07000d
 int string abc_action_bar_home_subtitle_description_format 0x7f07000e
