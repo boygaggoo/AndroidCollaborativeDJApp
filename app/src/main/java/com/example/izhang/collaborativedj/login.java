@@ -51,6 +51,7 @@ public class login extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), Playlist.class);
+                i.putExtra("PlaylistID", "0aH0ytXyaOcl9eGxHwokUI");
                 startActivity(i);
                 //call server to check if code works
                 if(checkCode(code.getText().toString())) {
