@@ -121,7 +121,7 @@ public class Playlist extends AppCompatActivity {
     private Socket mSocket;
     {
         try {
-            mSocket = IO.socket("http://chat.socket.io");
+            mSocket = IO.socket("http://collaborativedj.herokuapp.com/");
         } catch (URISyntaxException e) {}
     }
 
