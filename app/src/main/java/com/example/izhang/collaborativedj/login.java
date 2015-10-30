@@ -1,11 +1,8 @@
 package com.example.izhang.collaborativedj;
 
 import android.content.Intent;
-import android.media.session.MediaSession;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -29,6 +26,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.URI;
+import java.util.HashMap;
 
 /*
 Main Page - Login
@@ -143,7 +141,6 @@ public class login extends AppCompatActivity {
         AuthenticationRequest.Builder builder =
                 new AuthenticationRequest.Builder(CLIENT_ID, AuthenticationResponse.Type.TOKEN, REDIRECT_URI);
 
-
         builder.setScopes(new String[]{"user-read-private","streaming"});
         AuthenticationRequest request = builder.build();
         AuthenticationClient.openLoginActivity(this, REQUEST_CODE, request);
@@ -155,12 +152,45 @@ public class login extends AppCompatActivity {
 
         // Check if result comes from the correct activity
         if (requestCode == REQUEST_CODE) {
-            AuthenticationResponse response = AuthenticationClient.getResponse(resultCode, intent);
+            final AuthenticationResponse response = AuthenticationClient.getResponse(resultCode, intent);
 
             switch (response.getType()) {
                 // Response was successful and contains auth token
                 case TOKEN:
                     // Handle successful response
+                    RequestQueue queue = Volley.newRequestQueue(this);
+                    String url ="https://api.spotify.com/v1/me/";
+                    StringRequest request = new StringRequest(Request.Method.GET, url,
+                            new Response.Listener<String>() {
+                                @Override
+                                public void onResponse(String response) {
+                                    // Display the first 500 characters of the response string.
+                                    try {
+                                        JSONObject obj = new JSONObject(response);
+                                        String userID = obj.getString("id");
+                                        Log.v("TOKEN!", userID);
+
+                                    } catch (Exception e){
+                                        e.printStackTrace();
+                                    }
+                                }
+                            }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.v("TOKEN!", "Shit Failed");
+                        }
+                    }){
+                        @Override
+                        public HashMap<String, String> getHeaders() {
+                            HashMap<String, String> headers = new HashMap<String, String>();
+                            headers.put("Authorization", "Bearer " + response.getAccessToken());
+                            return headers;
+                        }
+                    };
+
+                    queue.add(request);
+
+                    Log.v("TOKEN!", response.getAccessToken());
                     Toast.makeText(getApplicationContext(), "Access Token: " + response.getAccessToken() + "\nResult Type: " + response.getType().toString() + "\n Expires In: " + response.getExpiresIn(), Toast.LENGTH_LONG).show();
                     Intent host = new Intent(this, HostActivity.class);
                     startActivity(host);
@@ -169,7 +199,6 @@ public class login extends AppCompatActivity {
                 case ERROR:
                     // Handle error response
                     break;
-
                 // Most likely auth flow was cancelled
                 default:
                     // Handle other cases
