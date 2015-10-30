@@ -28,8 +28,7 @@
         <activity
             android:name="com.example.izhang.collaborativedj.HostActivity"
             android:label="Host Options"
-            android:theme="@style/AppTheme.NoActionBar" >
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name="com.example.izhang.collaborativedj.Playlist"
             android:label="Party Playlist"

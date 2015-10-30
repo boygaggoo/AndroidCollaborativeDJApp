@@ -1,6 +1,6 @@
 package com.example.izhang.collaborativedj;
-
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -30,7 +30,7 @@ import java.util.HashMap;
 
 /*
 Main Page - Login
- */
+*/
 public class login extends AppCompatActivity {
     private static final int REQUEST_CODE = 1337;
     private static final String REDIRECT_URI = "collabdj://spotifycallback";
@@ -51,49 +51,42 @@ public class login extends AppCompatActivity {
         joinButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), Playlist.class);
-                i.putExtra("PlaylistID", "0aH0ytXyaOcl9eGxHwokUI");
-                startActivity(i);
                 //call server to check if code works
                 if(checkCode(code.getText().toString())) {
-                    i = new Intent(getApplicationContext(), Playlist.class);
-                    i.putExtra("PlaylistID", "0aH0ytXyaOcl9eGxHwokUI");
-                    startActivity(i);
-
                     RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-
-                    //// TODO: 10/29/15 : Change URL to actual.
-                    String url = "Http://";
-                    //// // TODO: 10/29/15
-
-                    JsonObjectRequest req = new JsonObjectRequest(url, null,
-                            new Response.Listener<JSONObject>() {
+                    String url ="http://collaborativedj.herokuapp.com/checkPlaylist/";
+                    StringRequest request = new StringRequest(Request.Method.POST, url,
+                            new Response.Listener<String>() {
                                 @Override
-                                public void onResponse(JSONObject response) {
-                                    try {
-                                        if(response.has("status")) {
-                                            int statusCode = response.getInt("status");
-                                            if(statusCode == 200) {
-                                                Intent i = new Intent(getApplicationContext(), Playlist.class);
-                                                i.putExtra("PlaylistID", "0aH0ytXyaOcl9eGxHwokUI");
-                                                startActivity(i);
-                                            }else{
-                                                Toast.makeText(getApplicationContext(), "Wrong Playlist Code", Toast.LENGTH_LONG).show();
-                                            }
-                                        }
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
+                                public void onResponse(String response) {
+                                    if(response.equals("OK")){
+
+                                        SharedPreferences.Editor editor = getSharedPreferences("PLAYLISTID", MODE_PRIVATE).edit();
+                                        editor.putString("playlistID", code.getText().toString());
+                                        editor.commit();
+
+                                        Intent playlistIntent = new Intent(getApplicationContext(), Playlist.class);
+                                        playlistIntent.putExtra("PlaylistID", code.getText().toString());
+                                        startActivity(playlistIntent);
+
                                     }
                                 }
                             }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            VolleyLog.e("Error: ", error.getMessage());
+                            Toast.makeText(getApplicationContext(), "This Playlist ID does not exist.", Toast.LENGTH_LONG).show();
                         }
-                    });
+                    }){
+                        @Override
+                        protected HashMap<String, String> getParams() {
+                            HashMap<String, String> headers = new HashMap<String, String>();
+                            headers.put("playlistId", code.getText().toString());
+                            return headers;
+                        }
+                    };
 
                     // Add the request to the RequestQueue.
-                    queue.add(req);
+                    queue.add(request);
 
                 }
                 else{
@@ -135,8 +128,8 @@ public class login extends AppCompatActivity {
         if(code == null)
             return false;
         boolean result = false;
-            if(code.length() > 0 && code.length() < 10)
-                result = true;
+        if(code.length() > 0 && code.length() < 25)
+            result = true;
         return result;
     }
 
@@ -145,7 +138,7 @@ public class login extends AppCompatActivity {
         AuthenticationRequest.Builder builder =
                 new AuthenticationRequest.Builder(CLIENT_ID, AuthenticationResponse.Type.TOKEN, REDIRECT_URI);
 
-        builder.setScopes(new String[]{"user-read-private","streaming"});
+        builder.setScopes(new String[]{"user-read-private","streaming", "playlist-modify-public", "playlist-modify-private"});
         AuthenticationRequest request = builder.build();
         AuthenticationClient.openLoginActivity(this, REQUEST_CODE, request);
     }
@@ -173,6 +166,10 @@ public class login extends AppCompatActivity {
                                     try {
                                         JSONObject obj = new JSONObject(response);
                                         userID = obj.getString("id");
+                                        Intent host = new Intent(getApplicationContext(), HostActivity.class);
+                                        host.putExtra("user_id", userID);
+                                        host.putExtra("access_token", accessToken);
+                                        startActivity(host);
                                     } catch (Exception e){
                                         e.printStackTrace();
                                     }
@@ -195,10 +192,7 @@ public class login extends AppCompatActivity {
 
                     Log.v("TOKEN!", response.getAccessToken());
                     Toast.makeText(getApplicationContext(), "Access Token: " + response.getAccessToken() + "\nResult Type: " + response.getType().toString() + "\n Expires In: " + response.getExpiresIn(), Toast.LENGTH_LONG).show();
-                    Intent host = new Intent(this, HostActivity.class);
-                    host.putExtra("user_id", userID);
-                    host.putExtra("access_token", accessToken);
-                    startActivity(host);
+
                     break;
                 // Auth flow returned an error
                 case ERROR:

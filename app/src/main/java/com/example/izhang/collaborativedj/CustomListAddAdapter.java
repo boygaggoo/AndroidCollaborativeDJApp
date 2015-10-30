@@ -56,10 +56,8 @@ public class CustomListAddAdapter extends ArrayAdapter<SongItem> {
         }
         final SongItem songItem = songItems.get(position);
         TextView songTitle = (TextView) v.findViewById(R.id.songTitle);
-        TextView songInfo = (TextView) v.findViewById(R.id.songInfo);
+        final TextView songInfo = (TextView) v.findViewById(R.id.songInfo);
         ImageView addButton = (ImageView) v.findViewById(R.id.addButton);
-
-
 
 
         songTitle.setText(songItem.getName());
@@ -70,7 +68,6 @@ public class CustomListAddAdapter extends ArrayAdapter<SongItem> {
             public void onClick(View v) {
                 RequestQueue queue = Volley.newRequestQueue(getContext());
                 String url = "Http://collaborativedj.herokuapp.com/addTrack";
-// Request a string response from the provided URL.
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                         new Response.Listener<String>() {
                             @Override
@@ -78,7 +75,6 @@ public class CustomListAddAdapter extends ArrayAdapter<SongItem> {
                                 // Display the first 500 characters of the response string.
                                 Intent i = new Intent(getContext(), Playlist.class);
                                 getContext().startActivity(i);
-
                                 Log.v("song add Server resp:", response);
                             }
                         }, new Response.ErrorListener() {
@@ -93,10 +89,10 @@ public class CustomListAddAdapter extends ArrayAdapter<SongItem> {
                     @Override
                     protected Map<String, String> getParams() {
                         Map<String, String> params = new HashMap<String, String>();
-                        params.put("trackURI", songItem.getURI());
+                        params.put("trackName", songItem.getName());
+                        params.put("trackUri", songItem.getURI());
                         params.put("playlistId", playlistId );
                        // params.put("accessToken", playlistID );
-
 
                         return params;
                     }

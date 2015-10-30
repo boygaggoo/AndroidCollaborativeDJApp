@@ -1,6 +1,6 @@
 package com.example.izhang.collaborativedj;
-
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -20,6 +20,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+
+import org.json.JSONObject;
 
 import java.util.HashMap;
 
@@ -48,27 +50,39 @@ public class HostActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Call create playlist here.
                 RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-                String url ="http://collaborativedj.herokuapp.com/createPlaylist";
+                String url ="http://collaborativedj.herokuapp.com/createPlaylist/";
                 StringRequest request = new StringRequest(Request.Method.POST, url,
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
-                                Intent i = new Intent(getApplicationContext(), Playlist.class);
-                                i.putExtra("PlaylistID", "0aH0ytXyaOcl9eGxHwokUI");
-                                startActivity(i);
-                                // Display the first 500 characters of the response string.
-                                Log.v("PLAYLIST!", response);
+                                try {
+                                    JSONObject jsResponse = new JSONObject(response);
+                                    Intent i = new Intent(getApplicationContext(), Playlist.class);
+                                    String playlistID = jsResponse.getString("playlistId");
 
+                                    SharedPreferences.Editor editor = getSharedPreferences("PLAYLISTID", MODE_PRIVATE).edit();
+                                    editor.putString("playlistID", playlistID);
+                                    editor.commit();
+
+                                    i.putExtra("PlaylistID", playlistID);
+                                    startActivity(i);
+
+                                }catch(Exception e){
+                                    e.printStackTrace();
+                                }
+
+                                // Display the first 500 characters of the response string.
+                                Log.v("PLAYLIST!", "Response" + response);
                             }
                         }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        error.printStackTrace();
+                        Log.v("PLAYLIST!", error.toString());
                         //Toast.makeText(getApplicationContext(), "This Playlist ID does not exist.", Toast.LENGTH_LONG).show();
                     }
                 }){
                     @Override
-                    public HashMap<String, String> getParams() {
+                    protected HashMap<String, String> getParams() {
                         HashMap<String, String> headers = new HashMap<String, String>();
                         headers.put("userId", userID);
                         headers.put("accessToken", accessToken);
@@ -76,11 +90,17 @@ public class HostActivity extends AppCompatActivity {
                     }
                 };
 
+                Log.v("PLAYLIST!", "UserID: " + userID);
+                Log.v("PLAYLIST!", "AccessToken: " + accessToken);
+
+
                 queue.add(request);
 
-                Intent i = new Intent(getApplicationContext(), Playlist.class);
-                i.putExtra("PlaylistID", "0aH0ytXyaOcl9eGxHwokUI");
-                startActivity(i);
+               /*
+               Intent i = new Intent(getApplicationContext(), Playlist.class);
+               i.putExtra("PlaylistID", "0aH0ytXyaOcl9eGxHwokUI");
+               startActivity(i);
+               */
             }
         });
 

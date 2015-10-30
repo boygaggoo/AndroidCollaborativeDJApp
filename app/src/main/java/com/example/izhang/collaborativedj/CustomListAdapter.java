@@ -61,9 +61,8 @@ public class CustomListAdapter extends ArrayAdapter<SongItem> {
         final ImageView downArrow = (ImageView) v.findViewById(R.id.downArrow);
 
 
-
         songTitle.setText(songItem.getName());
-        songInfo.setText(songItem.getArtist());
+        songInfo.setText(Integer.toString(songItem.getScore()));
 
         upArrow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,7 +76,7 @@ public class CustomListAdapter extends ArrayAdapter<SongItem> {
                     //server call
                     RequestQueue queue = Volley.newRequestQueue(getContext());
                     String url ="http://collaborativedj.herokuapp.com/voteSong";
-                    StringRequest request = new StringRequest(Request.Method.GET, url,
+                    StringRequest request = new StringRequest(Request.Method.POST, url,
                             new Response.Listener<String>() {
                                 @Override
                                 public void onResponse(String response) {
@@ -99,12 +98,15 @@ public class CustomListAdapter extends ArrayAdapter<SongItem> {
                         @Override
                         public HashMap<String, String> getParams() {
                             HashMap<String, String> params = new HashMap<String, String>();
-                            params.put("vote", "-1");
-                            params.put("trackURI", songItem.getURI());
-                            params.put("playlistID", playlistID);
+                            params.put("vote", "1");
+                            params.put("playlistId", playlistID);
+                            params.put("trackUri", songItem.getURI());
                             return params;
                         }
                     };
+
+                    queue.add(request);
+
                 }
                 setImages(item.getVote(), downArrow, upArrow);
                 Log.v("up arrow", "up arrow clicked");
@@ -123,7 +125,7 @@ public class CustomListAdapter extends ArrayAdapter<SongItem> {
                     //server call
                     RequestQueue queue = Volley.newRequestQueue(getContext());
                     String url = "http://collaborativedj.herokuapp.com/voteSong";
-                    StringRequest request = new StringRequest(Request.Method.GET, url,
+                    StringRequest request = new StringRequest(Request.Method.POST, url,
                             new Response.Listener<String>() {
                                 @Override
                                 public void onResponse(String response) {
@@ -145,12 +147,14 @@ public class CustomListAdapter extends ArrayAdapter<SongItem> {
                         @Override
                         public HashMap<String, String> getParams() {
                             HashMap<String, String> params = new HashMap<String, String>();
-                            params.put("vote", "1");
-                            params.put("trackURI", songItem.getURI());
-                            params.put("playlistID", playlistID);
+                            params.put("vote", "-1");
+                            params.put("trackUri", songItem.getURI());
+                            params.put("playlistId", playlistID);
                             return params;
                         }
                     };
+
+                    queue.add(request);
                 }
 
                 setImages(item.getVote(), downArrow,upArrow);

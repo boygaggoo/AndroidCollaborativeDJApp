@@ -23,8 +23,7 @@
         <activity
             android:name=".HostActivity"
             android:theme="@style/AppTheme.NoActionBar"
-            android:label="Host Options">
-        </activity>
+            android:label="Host Options"/>
 
         <activity
             android:name=".Playlist"

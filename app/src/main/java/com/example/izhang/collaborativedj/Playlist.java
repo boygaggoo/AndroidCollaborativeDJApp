@@ -2,6 +2,7 @@ package com.example.izhang.collaborativedj;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -27,6 +28,7 @@ import com.github.nkzawa.emitter.Emitter;
 import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -40,16 +42,23 @@ public class Playlist extends AppCompatActivity {
     private ListView songList;
     private ArrayList<SongItem> songItems = new ArrayList<SongItem>();
     private Activity playlistActivity;
+    private String playlistID = "";
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         playlistActivity = this;
         setContentView(R.layout.activity_playlist);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarPlaylist);
-        Bundle extras = getIntent().getExtras();
-        String playlistID = extras.getString("PlaylistID");
-        Log.v("PLAYLIST", playlistID);
-        toolbar.setTitle("Code:" + playlistID);
+
+        SharedPreferences prefs = getSharedPreferences("PLAYLISTID", MODE_PRIVATE);
+        playlistID = prefs.getString("playlistID", "");
+        Log.v("Playlist", playlistID);
+
+        toolbar.setTitle(playlistID);
+
         setSupportActionBar(toolbar);
+
+        songList = (ListView) findViewById(R.id.listView);
 
 
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -59,12 +68,28 @@ public class Playlist extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         // Display the first 500 characters of the response string.
+                        songItems.clear();
+                        Log.v("Playlist", response);
+
+
                         try {
-                            Log.v("PLAYLIST!", response);
+                            JSONObject responseObj = new JSONObject(response);
+                            JSONArray songObjArray = responseObj.getJSONArray("songs");
+                            for(int i = 0; i < songObjArray.length(); i++){
+                                JSONObject tempObj = songObjArray.getJSONObject(i);
+                                Log.v("Playlist", tempObj.toString());
+
+                                songItems.add(new SongItem(tempObj.getString("track_name"), " ", " ", tempObj.getString("song_uri"), tempObj.getInt("score")));
+                            }
+                            CustomListAdapter adapter = new CustomListAdapter(playlistActivity, songItems, playlistID);
+                            // Assign adapter to ListView
+                            songList.setAdapter(adapter);
+
                         } catch (Exception e){
                             e.printStackTrace();
 
                         }
+
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -81,19 +106,15 @@ public class Playlist extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), AddSong.class);
-                i.putExtra("PlaylistID", "0aH0ytXyaOcl9eGxHwokUI");
+                i.putExtra("PlaylistID", playlistID);
                 startActivity(i);
             }
         });
 
         //get information from server and add to songlist for display
-        mSocket.on("new message", onNewMessage);
+        mSocket.on("playlist updated", playlistUpdated);
         mSocket.connect();
-        songItems.add(new SongItem("trap queen", "fetty wap", "idk", null, 0));
-        songList = (ListView) findViewById(R.id.listView);
-        CustomListAdapter adapter=new CustomListAdapter(this, songItems, playlistID);
-        // Assign adapter to ListView
-        songList.setAdapter(adapter);
+
     }
 
     @Override
@@ -121,22 +142,38 @@ public class Playlist extends AppCompatActivity {
     private Socket mSocket;
     {
         try {
-            mSocket = IO.socket("http://collaborativedj.herokuapp.com/");
+            mSocket = IO.socket("https://collaborativedj.herokuapp.com/");
         } catch (URISyntaxException e) {}
     }
 
-    private Emitter.Listener onNewMessage = new Emitter.Listener() {
+    private Emitter.Listener playlistUpdated = new Emitter.Listener() {
         @Override
         public void call(final Object... args) {
             playlistActivity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     JSONObject data = (JSONObject) args[0];
-                    String songName;
-                    String votes;
+                    Log.v("Socket.io", data.toString());
+
+                    String track_name;
+                    int score;
+                    String song_uri;
                     try {
-                        songName = data.getString("songname");
-                        votes = data.getString("votes");
+                        JSONArray array = data.getJSONArray("songs");
+                        songItems.clear();
+                        for(int i = 0; i < array.length(); i++) {
+                            JSONObject temp = array.getJSONObject(i);
+                            track_name = temp.getString("track_name");
+                            score = temp.getInt("score");
+                            song_uri = temp.getString("song_uri");
+                            songItems.add(new SongItem(track_name, " ", " ", song_uri, score));
+
+
+                            Log.v("Socket", track_name + " " + score);
+                        }
+                        CustomListAdapter adapter = new CustomListAdapter(playlistActivity, songItems, playlistID);
+                        // Assign adapter to ListView
+                        songList.setAdapter(adapter);
                     } catch (JSONException e) {
                         return;
                     }
