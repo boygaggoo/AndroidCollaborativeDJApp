@@ -24,6 +24,7 @@ import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -32,6 +33,8 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by thebeist on 10/2/2015.
@@ -42,6 +45,7 @@ public class AddSong  extends AppCompatActivity {
     private ArrayList<SongItem> returnedList = new ArrayList<>();
     private ListView songsDisplayed;
     private Activity activity;
+    private String playlistID;
 
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -53,6 +57,11 @@ public class AddSong  extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarAddSong);
         setSupportActionBar(toolbar);
+
+        Bundle extras = getIntent().getExtras();
+        playlistID = extras.getString("PlaylistID");
+        Log.v("PLAYLIST", playlistID);
+
         //should be able to search song from top and will display options in list.
         // once a song is added add to playlist by calling to server
         // TODO: This doesnt work, need to add button to the view
@@ -87,7 +96,7 @@ public class AddSong  extends AppCompatActivity {
             public boolean onMenuItemActionCollapse(MenuItem item) {
 
                 songsDisplayed = (ListView) findViewById(R.id.listView);
-                CustomListAddAdapter adapter=new CustomListAddAdapter(activity, returnedList);
+                CustomListAddAdapter adapter=new CustomListAddAdapter(activity, returnedList, playlistID);
                 // Assign adapter to ListView
                 songsDisplayed.setAdapter(adapter);
                 return true;
@@ -116,21 +125,21 @@ public class AddSong  extends AppCompatActivity {
 
         ArrayList<SongItem> queryList= new ArrayList<SongItem>();
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-            String query = intent.getStringExtra(SearchManager.QUERY);
+            final String query = intent.getStringExtra(SearchManager.QUERY);
             searchCompleted = true;
             //send string to server
 
             RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-            String url = "";
+            String url = "http://collaborativedj.herokuapp.com/searchTrack";
 // Request a string response from the provided URL.
-            StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
                             // Display the first 500 characters of the response string.
-
+                            //set returned list
                             songsDisplayed = (ListView) findViewById(R.id.listView);
-                            CustomListAddAdapter adapter=new CustomListAddAdapter(activity, returnedList);
+                            CustomListAddAdapter adapter=new CustomListAddAdapter(activity, returnedList, playlistID);
                             // Assign adapter to ListView
                             songsDisplayed.setAdapter(adapter);
                             Log.v("Server response:", response);
@@ -144,7 +153,26 @@ public class AddSong  extends AppCompatActivity {
 
 
                 }
-            });
+            }) {
+                @Override
+                protected Map<String, String> getParams() {
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("track", query);
+                    params.put("playlistId", playlistID );
+
+                    return params;
+                }
+
+
+
+               /* @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("Content-Type", "application/x-www-form-urlencoded");
+                    return params;
+                }*/
+            };
+
 // Add the request to the RequestQueue.
             queue.add(stringRequest);
 

@@ -75,6 +75,7 @@ public class login extends AppCompatActivity {
                                             int statusCode = response.getInt("status");
                                             if(statusCode == 200) {
                                                 Intent i = new Intent(getApplicationContext(), Playlist.class);
+                                                i.putExtra("PlaylistID", "0aH0ytXyaOcl9eGxHwokUI");
                                                 startActivity(i);
                                             }else{
                                                 Toast.makeText(getApplicationContext(), "Wrong Playlist Code", Toast.LENGTH_LONG).show();

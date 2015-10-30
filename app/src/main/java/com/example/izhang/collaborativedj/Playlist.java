@@ -71,6 +71,7 @@ public class Playlist extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(getApplicationContext(), "This Playlist ID does not exist.", Toast.LENGTH_LONG).show();
             }
+
         });
 
         queue.add(request);
@@ -80,6 +81,7 @@ public class Playlist extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), AddSong.class);
+                i.putExtra("PlaylistID", "0aH0ytXyaOcl9eGxHwokUI");
                 startActivity(i);
             }
         });
@@ -89,7 +91,7 @@ public class Playlist extends AppCompatActivity {
         mSocket.connect();
         songItems.add(new SongItem("trap queen", "fetty wap", "idk", null, 0));
         songList = (ListView) findViewById(R.id.listView);
-        CustomListAdapter adapter=new CustomListAdapter(this, songItems);
+        CustomListAdapter adapter=new CustomListAdapter(this, songItems, playlistID);
         // Assign adapter to ListView
         songList.setAdapter(adapter);
     }

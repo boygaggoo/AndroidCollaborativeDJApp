@@ -25,6 +25,8 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 
@@ -34,12 +36,12 @@ import java.util.Set;
 public class CustomListAddAdapter extends ArrayAdapter<SongItem> {
 
     private final ArrayList<SongItem>  songItems;
+    private String playlistId;
 
-    private  String IMAGEPATH = "http://app.engagebyeview.com/portal/VideoThumbNails/";
-    public CustomListAddAdapter(Activity context, ArrayList<SongItem> songItems) {
+    public CustomListAddAdapter(Activity context, ArrayList<SongItem> songItems, String playlistId) {
         super(context, R.layout.listadd_item, songItems);
         // TODO Auto-generated constructor stub
-
+        this.playlistId = playlistId;
         this.songItems=songItems;
     }
 
@@ -60,23 +62,24 @@ public class CustomListAddAdapter extends ArrayAdapter<SongItem> {
 
 
 
-        songTitle.setText(songItems.get(position).getName());
-        songInfo.setText(songItems.get(position).getArtist() + songItems.get(position).getAlbum());
+        songTitle.setText(songItem.getName());
+        songInfo.setText(songItem.getArtist() + songItem.getAlbum());
 
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 RequestQueue queue = Volley.newRequestQueue(getContext());
-                String url = "";
+                String url = "http://collaborativedj.herokuapp.com/addTrack";
 // Request a string response from the provided URL.
-                StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
                                 // Display the first 500 characters of the response string.
+                                Intent i = new Intent(getContext(), Playlist.class);
+                                getContext().startActivity(i);
 
-
-                                Log.v("Server response:", response);
+                                Log.v("song add Server resp:", response);
                             }
                         }, new Response.ErrorListener() {
                     @Override
@@ -85,11 +88,30 @@ public class CustomListAddAdapter extends ArrayAdapter<SongItem> {
                                 Toast.LENGTH_LONG).show();
 
 
-
                     }
-                });
-                Log.v("add button", "up arrow clicked");
+                }){
+                    @Override
+                    protected Map<String, String> getParams() {
+                        Map<String, String> params = new HashMap<String, String>();
+                        params.put("trackURI", songItem.getURI());
+                        params.put("playlistId", playlistId );
+                       // params.put("accessToken", playlistID );
 
+
+                        return params;
+                    }
+
+
+
+               /* @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("Content-Type", "application/x-www-form-urlencoded");
+                    return params;
+                }*/
+                };
+                Log.v("add button", "add button clicked");
+                queue.add(stringRequest);
             }
         });
 
