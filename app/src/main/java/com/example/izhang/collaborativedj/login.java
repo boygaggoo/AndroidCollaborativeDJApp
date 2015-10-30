@@ -57,6 +57,7 @@ public class login extends AppCompatActivity {
                 //call server to check if code works
                 if(checkCode(code.getText().toString())) {
                     i = new Intent(getApplicationContext(), Playlist.class);
+                    i.putExtra("PlaylistID", "0aH0ytXyaOcl9eGxHwokUI");
                     startActivity(i);
 
                     RequestQueue queue = Volley.newRequestQueue(getApplicationContext());

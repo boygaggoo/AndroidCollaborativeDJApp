@@ -45,11 +45,12 @@ public class Playlist extends AppCompatActivity {
         playlistActivity = this;
         setContentView(R.layout.activity_playlist);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarPlaylist);
-        setSupportActionBar(toolbar);
-
         Bundle extras = getIntent().getExtras();
         String playlistID = extras.getString("PlaylistID");
         Log.v("PLAYLIST", playlistID);
+        toolbar.setTitle("Code:" + playlistID);
+        setSupportActionBar(toolbar);
+
 
         RequestQueue queue = Volley.newRequestQueue(this);
         String url ="http://collaborativedj.herokuapp.com/playlist/" + playlistID;

@@ -53,14 +53,17 @@ public class HostActivity extends AppCompatActivity {
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
+                                Intent i = new Intent(getApplicationContext(), Playlist.class);
+                                i.putExtra("PlaylistID", "0aH0ytXyaOcl9eGxHwokUI");
+                                startActivity(i);
                                 // Display the first 500 characters of the response string.
                                 Log.v("PLAYLIST!", response);
-                                
+
                             }
                         }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.v("PLAYLIST!", error.toString() + "  " );
+                        error.printStackTrace();
                         //Toast.makeText(getApplicationContext(), "This Playlist ID does not exist.", Toast.LENGTH_LONG).show();
                     }
                 }){
@@ -75,11 +78,9 @@ public class HostActivity extends AppCompatActivity {
 
                 queue.add(request);
 
-                /*
                 Intent i = new Intent(getApplicationContext(), Playlist.class);
                 i.putExtra("PlaylistID", "0aH0ytXyaOcl9eGxHwokUI");
                 startActivity(i);
-                */
             }
         });
 
