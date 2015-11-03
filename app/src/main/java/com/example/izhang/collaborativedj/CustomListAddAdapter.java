@@ -75,6 +75,7 @@ public class CustomListAddAdapter extends ArrayAdapter<SongItem> {
                                 // Display the first 500 characters of the response string.
                                 Intent i = new Intent(getContext(), Playlist.class);
                                 getContext().startActivity(i);
+                                ((Activity)getContext()).finish();
                                 Log.v("song add Server resp:", response);
                             }
                         }, new Response.ErrorListener() {

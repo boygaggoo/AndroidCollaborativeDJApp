@@ -41,6 +41,7 @@ import org.json.JSONObject;
 public class Playlist extends AppCompatActivity {
     private ListView songList;
     private ArrayList<SongItem> songItems = new ArrayList<SongItem>();
+    private ArrayList<SongItem> prevSongs;
     private Activity playlistActivity;
     private String playlistID = "";
 
@@ -75,12 +76,29 @@ public class Playlist extends AppCompatActivity {
                         try {
                             JSONObject responseObj = new JSONObject(response);
                             JSONArray songObjArray = responseObj.getJSONArray("songs");
-                            for(int i = 0; i < songObjArray.length(); i++){
-                                JSONObject tempObj = songObjArray.getJSONObject(i);
-                                Log.v("Playlist", tempObj.toString());
 
-                                songItems.add(new SongItem(tempObj.getString("track_name"), " ", " ", tempObj.getString("song_uri"), tempObj.getInt("score")));
+                                for (int i = 0; i < songObjArray.length(); i++) {
+                                    JSONObject tempObj = songObjArray.getJSONObject(i);
+                                    Log.v("Playlist", tempObj.toString());
+                                    songItems.add(new SongItem(tempObj.getString("track_name"), " ", " ", tempObj.getString("song_uri"), tempObj.getInt("score")));
+                                    if(prevSongs != null) {
+                                        for (int j = 0; j < prevSongs.size(); j++) {
+                                            if (prevSongs.get(j).getURI().equals(tempObj.getString("song_uri"))) {
+                                                if (prevSongs.get(j).getVote() == 1) {
+                                                    songItems.get(i).downvote();
+                                                } else if (prevSongs.get(j).getVote() == 2) {
+                                                    songItems.get(i).upvote();
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                }
+                            prevSongs = new ArrayList<>();
+                            for (int i = 0; i < songItems.size(); i++) {
+                                prevSongs.add(songItems.get(i));
                             }
+
                             CustomListAdapter adapter = new CustomListAdapter(playlistActivity, songItems, playlistID);
                             // Assign adapter to ListView
                             songList.setAdapter(adapter);
@@ -167,9 +185,23 @@ public class Playlist extends AppCompatActivity {
                             score = temp.getInt("score");
                             song_uri = temp.getString("song_uri");
                             songItems.add(new SongItem(track_name, " ", " ", song_uri, score));
-
+                            if(prevSongs != null) {
+                                for (int j = 0; j < prevSongs.size(); j++) {
+                                    if (prevSongs.get(j).getURI().equals(temp.getString("song_uri"))) {
+                                        if (prevSongs.get(j).getVote() == 1) {
+                                            songItems.get(i).downvote();
+                                        } else if (prevSongs.get(j).getVote() == 2) {
+                                            songItems.get(i).upvote();
+                                        }
+                                    }
+                                }
+                            }
 
                             Log.v("Socket", track_name + " " + score);
+                        }
+                        prevSongs = new ArrayList<>();
+                        for (int i = 0; i < songItems.size(); i++) {
+                            prevSongs.add(songItems.get(i));
                         }
                         CustomListAdapter adapter = new CustomListAdapter(playlistActivity, songItems, playlistID);
                         // Assign adapter to ListView

@@ -73,6 +73,7 @@ public class AddSong  extends AppCompatActivity {
                 final String getSearchText = searchBox.getText().toString();
                 Log.v("AddSong", "Playlist: " + playlistID);
                 Log.v("AddSong", "Track: " + getSearchText);
+                returnedList.clear();
 
                 ArrayList<SongItem> queryList= new ArrayList<SongItem>();
                 RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
@@ -93,6 +94,9 @@ public class AddSong  extends AppCompatActivity {
                                     JSONObject jsonTrackObj = jsonObj.getJSONObject("tracks");
                                     JSONArray jsonSongList = jsonTrackObj.getJSONArray("items");
 
+                                    if(jsonSongList.length() == 0){
+                                        Toast.makeText(getApplicationContext(), "No Search Results", Toast.LENGTH_LONG).show();
+                                    }
                                     for(int i = 0; i < jsonSongList.length(); i++){
                                         JSONArray artistArray = jsonSongList.getJSONObject(i).getJSONArray("artists");
                                         String artist = artistArray.getJSONObject(0).getString("name");

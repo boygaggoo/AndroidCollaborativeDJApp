@@ -69,9 +69,11 @@ public class CustomListAdapter extends ArrayAdapter<SongItem> {
             public void onClick(View v) {
                 SongItem item = songItems.get(position);
                 if (item.getVote() == 2) {
-                    item.neutral();
+                   ; //item.neutral();
+
 
                 } else {
+                    int tempVote = item.getVote();
                     item.upvote();
                     //server call
                     RequestQueue queue = Volley.newRequestQueue(getContext());
@@ -106,7 +108,10 @@ public class CustomListAdapter extends ArrayAdapter<SongItem> {
                     };
 
                     queue.add(request);
+                    if(tempVote ==1) {
 
+                        queue.add(request);
+                    }
                 }
                 setImages(item.getVote(), downArrow, upArrow);
                 Log.v("up arrow", "up arrow clicked");
@@ -118,9 +123,10 @@ public class CustomListAdapter extends ArrayAdapter<SongItem> {
             public void onClick(View v) {
                 SongItem item = songItems.get(position);
                 if (item.getVote() == 1) {
-                    item.neutral();
+                    ;//item.neutral();
 
                 } else {
+                    int tempVote = item.getVote();
                     item.downvote();
                     //server call
                     RequestQueue queue = Volley.newRequestQueue(getContext());
@@ -153,8 +159,12 @@ public class CustomListAdapter extends ArrayAdapter<SongItem> {
                             return params;
                         }
                     };
-
                     queue.add(request);
+                    if(tempVote ==2) {
+
+                        queue.add(request);
+                    }
+
                 }
 
                 setImages(item.getVote(), downArrow,upArrow);

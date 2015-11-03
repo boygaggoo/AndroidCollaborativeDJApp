@@ -170,6 +170,7 @@ public class login extends AppCompatActivity {
                                         host.putExtra("user_id", userID);
                                         host.putExtra("access_token", accessToken);
                                         startActivity(host);
+                                        finish();
                                     } catch (Exception e){
                                         e.printStackTrace();
                                     }
@@ -191,7 +192,7 @@ public class login extends AppCompatActivity {
                     queue.add(request);
 
                     Log.v("TOKEN!", response.getAccessToken());
-                    Toast.makeText(getApplicationContext(), "Access Token: " + response.getAccessToken() + "\nResult Type: " + response.getType().toString() + "\n Expires In: " + response.getExpiresIn(), Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getApplicationContext(), "Access Token: " + response.getAccessToken() + "\nResult Type: " + response.getType().toString() + "\n Expires In: " + response.getExpiresIn(), Toast.LENGTH_LONG).show();
 
                     break;
                 // Auth flow returned an error
