@@ -78,7 +78,6 @@ public class HostActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.v("PLAYLIST!", error.toString());
-                        //Toast.makeText(getApplicationContext(), "This Playlist ID does not exist.", Toast.LENGTH_LONG).show();
                     }
                 }){
                     @Override

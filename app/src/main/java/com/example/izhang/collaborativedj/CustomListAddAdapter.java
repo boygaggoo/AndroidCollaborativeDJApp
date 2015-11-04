@@ -81,8 +81,7 @@ public class CustomListAddAdapter extends ArrayAdapter<SongItem> {
                         }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getContext(), "Could not connect to internet" + error.toString(),
-                                Toast.LENGTH_LONG).show();
+
 
 
                     }

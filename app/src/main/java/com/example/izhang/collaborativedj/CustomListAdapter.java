@@ -100,7 +100,7 @@ public class CustomListAdapter extends ArrayAdapter<SongItem> {
                         @Override
                         public HashMap<String, String> getParams() {
                             HashMap<String, String> params = new HashMap<String, String>();
-                            params.put("vote", "1");
+                            params.put("vote", "-1");
                             params.put("playlistId", playlistID);
                             params.put("trackUri", songItem.getURI());
                             return params;
@@ -146,14 +146,13 @@ public class CustomListAdapter extends ArrayAdapter<SongItem> {
                             }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            Toast.makeText(getContext(), "Downvote failed", Toast.LENGTH_LONG).show();
                         }
 
                     }) {
                         @Override
                         public HashMap<String, String> getParams() {
                             HashMap<String, String> params = new HashMap<String, String>();
-                            params.put("vote", "-1");
+                            params.put("vote", "1");
                             params.put("trackUri", songItem.getURI());
                             params.put("playlistId", playlistID);
                             return params;

@@ -8,7 +8,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.Menu;
-
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,7 +20,6 @@ import com.spotify.sdk.android.authentication.AuthenticationClient;
 import com.spotify.sdk.android.authentication.AuthenticationRequest;
 import com.spotify.sdk.android.authentication.AuthenticationResponse;
 import com.spotify.sdk.android.player.Spotify;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -74,7 +72,6 @@ public class login extends AppCompatActivity {
                             }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            Toast.makeText(getApplicationContext(), "This Playlist ID does not exist.", Toast.LENGTH_LONG).show();
                         }
                     }){
                         @Override
@@ -90,8 +87,7 @@ public class login extends AppCompatActivity {
 
                 }
                 else{
-                    Toast.makeText(getApplicationContext(), "Enter a code",
-                            Toast.LENGTH_LONG).show();
+
                     Log.v("Try Join", "code was null");
                 }
             }

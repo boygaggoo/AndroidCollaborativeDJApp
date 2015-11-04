@@ -117,8 +117,7 @@ public class AddSong  extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.v("AddSong", "ERROR " + error.toString());
-                        Toast.makeText(getApplicationContext(), "Could not connect to internet" + error.toString(),
-                                Toast.LENGTH_LONG).show();
+
                     }
                 }) {
                     @Override
