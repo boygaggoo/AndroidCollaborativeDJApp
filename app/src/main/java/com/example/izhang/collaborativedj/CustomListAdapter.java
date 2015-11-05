@@ -110,7 +110,7 @@ public class CustomListAdapter extends ArrayAdapter<SongItem> {
                     queue.add(request);
                     if(tempVote ==1) {
 
-                        queue.add(request);
+                       // queue.add(request);
                     }
                 }
                 setImages(item.getVote(), downArrow, upArrow);
@@ -161,7 +161,7 @@ public class CustomListAdapter extends ArrayAdapter<SongItem> {
                     queue.add(request);
                     if(tempVote ==2) {
 
-                        queue.add(request);
+                        //queue.add(request);
                     }
 
                 }
